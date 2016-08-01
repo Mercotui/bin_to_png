@@ -1,3 +1,6 @@
+test.png
+
+## RUBY ignores gerated by gitignore.io
 *.gem
 *.rbc
 /.config
