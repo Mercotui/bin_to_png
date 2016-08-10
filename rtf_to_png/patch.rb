@@ -2,8 +2,8 @@ require "chunky_png"
 
 class Patch
     module Types
-        SENTENCE_START=0
-        #SENTENCE_END=1
+        SPACER=0
+        SENTENCE_START=1
         WORD_START=2
         MID=3
         #WORD_END=4
@@ -36,6 +36,9 @@ private
         img = ChunkyPNG::Image.new(width + offset, height, ChunkyPNG::Color::TRANSPARENT)
 
         case @type
+        when Types::SPACER
+            top_offset = 0
+            bottom_offset = 0
         when Types::SENTENCE_START
             top_offset = 0
             bottom_offset = 0
@@ -45,6 +48,8 @@ private
         when Types::MID
             top_offset = offset
             bottom_offset = 0
+        else
+            puts 'to_patch invalid type: "' + @type.to_s + '"'
         end
 
         points = Array.new()
