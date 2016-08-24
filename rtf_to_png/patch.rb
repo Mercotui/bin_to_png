@@ -9,15 +9,13 @@ class Patch
         #WORD_END=4
     end
 
-    def set(char, color, type = MID)
+    def set(char, color, type = Types::MID)
         @char = char
-        @color = color
+        @color = ChunkyPNG::Color::rgb(color[0], color[1], color[2])
         @type = type
     end
 
-    def to_img(mode, width, height = 0, offset = 0)
-        height = width * 1.6
-        height.floor
+    def to_img(mode, width, height, offset = 0)
         offset = width * 0.5
         case mode
         when 'patch'
