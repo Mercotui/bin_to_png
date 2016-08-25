@@ -1,6 +1,0 @@
-[submodule "rtf_to_png/Ruby-RTF"]
-	path = rtf_to_png/Ruby-RTF
-	url = https://github.com/dj2/Ruby-RTF.git
-[submodule "rtf_to_png/chunky_png"]
-	path = rtf_to_png/chunky_png
-	url = https://github.com/wvanbergen/chunky_png.git
