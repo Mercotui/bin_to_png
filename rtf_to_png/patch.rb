@@ -15,8 +15,7 @@ class Patch
         @type = type
     end
 
-    def to_img(mode, width, height, offset = 0)
-        offset = width * 0.5
+    def to_img(mode, width, height, offset)
         case mode
         when 'patch'
             ret = to_patch(width, height, offset, @color)

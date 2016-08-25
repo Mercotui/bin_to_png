@@ -1,6 +1,6 @@
 #! /usr/bin/env ruby
 require "chunky_png"
-require_relative "../rtf_to_png/patch.rb"
+require_relative "../patch.rb"
 
 WIDTH = 40
 HEIGHT = 70

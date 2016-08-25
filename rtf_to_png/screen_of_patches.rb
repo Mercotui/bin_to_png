@@ -39,38 +39,41 @@ class ScreenOfchars
         end
     end
 
-    def add_sentence (sentence)
-        word_list = sentence.split(",")
-        word_list.each do |word|
-            character_list = word.split(" ")
-            character_list.each do |char|
-                word_chars << patch.new.set(character)
-            end
-        word.last.role = "d"
-        (sentence_chars << word_chars).flatten!
-        end
-        (@chars << sentence_chars).flatten!
-    end
+    def generate (width, height)
+        png = ChunkyPNG::Image.new(width, height, ChunkyPNG::Color('purple'))
 
-    def generate
-        png = ChunkyPNG::Image.new(1920, 1080, ChunkyPNG::Color('purple'))
-
-        @width = 20
-        @height = (@width * 1.6).floor
+        char_width = 19
+        char_height = (char_width * 1.6).floor
+        char_offset = (char_width * 0.5).floor
         idx = 0
         loc_x = 0
         loc_y = 0
 
-        while loc_y <= 1080 && @chars.each.count > idx do
-            begin
-                char_img = @chars[idx].to_img('patch', @width, @height)
-                png.compose!(char_img, loc_x, loc_y)
-                loc_x += @width
-                idx += 1
-                puts "#" + idx.to_s + ": (" + loc_x.to_s + ", " + loc_y.to_s + ")"
-            rescue ChunkyPNG::OutOfBounds
+        while loc_y <= height && @chars.each.count > idx do
+            char_img = @chars[idx].to_img('patch', char_width, char_height, char_offset)
+            if(loc_x == 0)
+                char_img.crop!(char_offset, 0, char_width, char_height)
+                loc_x_increment = char_width - char_offset
+            else
+                if(loc_x + char_img.width > width)
+                    max_char_width = width - loc_x
+                    char_img.crop!(0, 0, max_char_width, char_height)
+                end
+                loc_x_increment = char_width
+            end
+            if(loc_y + char_img.height > height)
+                max_char_height = height - loc_y
+                char_img.crop!(0, 0, char_img.width, max_char_height)
+            end
+
+            png.compose!(char_img, loc_x, loc_y)
+            loc_x += loc_x_increment
+            idx += 1
+            puts "#" + idx.to_s + ": (" + loc_x.to_s + ", " + loc_y.to_s + ")"
+
+            if(loc_x > width)
                 loc_x = 0
-                loc_y += @height
+                loc_y += char_height
             end
         end
 
