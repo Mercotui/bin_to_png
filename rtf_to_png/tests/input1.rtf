@@ -1,86 +1,72 @@
 {\rtf1\ansi\uc0 \deff1{\fonttbl{\f1\fmodern\fprq1\fcharset0 Courier New;}}{\colortbl;\red224\green234\blue238;\red00\green00\blue00;\red191\green03\blue03;\red176\green126\blue00;\red131\green129\blue131;\red131\green129\blue131;\red255\green00\blue255;\red00\green130\blue00;\red129\green129\blue00;\red85\green85\blue85;\red00\green00\blue00;\red00\green87\blue174;\red00\green00\blue00;\red00\green00\blue00;\red00\green87\blue174;\red01\green01\blue129;}
 \paperw11905\paperh16837\margl1134\margr1134\margt1134\margb1134\sectd\plain\f1\fs20
-\pard \cbpat1{{\cf2{}}{\cf5{\i #!/usr/bin/ruby\i0 }}}\par\pard
-\cbpat1{{\cf2{}}{\cf13{\b require\b0 }} {\cf2{}}{\cf3{'chunky_png'}}{\cf2{}}}\par\pard
-\cbpat1{{\cf13{\b require\b0 }} {\cf2{}}{\cf3{'ruby-rtf'}}{\cf2{}\par\pard
-\cbpat1{require_relative}} {\cf3{'patch'}}{\cf2{}}}\par\pard
+\pard \cbpat1{{\cf2{}}{\cf13{\b require\b0 }} {\cf2{}}{\cf3{"chunky_png"}}{\cf2{}}}\par\pard
 \cbpat1{}\par\pard
-\cbpat1{{\cf5{\i #parse sentences\i0 }}}\par\pard
-\cbpat1{{\cf2{}}{\cf5{\i # for each sentence\i0 }}}\par\pard
-\cbpat1{{\cf2{}}{\cf5{\i #   for each word\i0 }}}\par\pard
-\cbpat1{{\cf2{}}{\cf5{\i #       for each character\i0 }}}\par\pard
-\cbpat1{{\cf2{}}{\cf5{\i #           create patch\i0 }}}\par\pard
-\cbpat1{{\cf2{}}{\cf5{\i #           set patch collor\i0 }}}\par\pard
-\cbpat1{{\cf2{}}{\cf5{\i #       set start of word as start\i0 }}}\par\pard
-\cbpat1{{\cf2{}}{\cf5{\i #       set end of word as end\i0 }}}\par\pard
-\cbpat1{{\cf2{}}{\cf5{\i #   set begin of sentence as begin\i0 }}}\par\pard
-\cbpat1{{\cf2{}}{\cf5{\i #   set end of sentence as end\i0 }}}\par\pard
-\cbpat1{{\cf2{}}}\par\pard
-\cbpat1{{\cf13{\b class\b0 }} {\cf2{ScreenOfchars}}}\par\pard
-\cbpat1{}\par\pard
-\cbpat1{    {\cf13{\b def\b0 }} {\cf2{}}{\cf16{parse_rtf}}{\cf2{}}{\cf11{(}}{\cf2{rtf_text}}{\cf11{)}}}\par\pard
-\cbpat1{{\cf2{}}        {\cf15{@chars}} {\cf2{}}{\cf11{=}} {\cf2{Array}}{\cf11{.}}{\cf2{new}\par\pard
-\cbpat1{        doc}} {\cf11{=}} {\cf2{RubyRTF}}{\cf11{:}}{\cf2{}}{\cf14{\b :Parser\b0 }}{\cf2{}}{\cf11{.}}{\cf2{new}}{\cf11{.}}{\cf2{}}{\cf16{parse}}{\cf2{}}{\cf11{(}}{\cf2{rtf_text}}{\cf11{)}}}\par\pard
-\cbpat1{{\cf2{        doc}}{\cf11{.}}{\cf2{sections}}{\cf11{.}}{\cf2{each}} {\cf13{\b do\b0 }} {\cf2{}}{\cf11{|}}{\cf2{section}}{\cf11{|}}}\par\pard
-\cbpat1{{\cf2{            mods}} {\cf11{=}} {\cf2{section}}{\cf11{[}}{\cf2{}}{\cf14{\b :modifiers\b0 }}{\cf2{}}{\cf11{]}}}\par\pard
-\cbpat1{{\cf2{            color}} {\cf11{=}} {\cf2{mods}}{\cf11{[}}{\cf2{}}{\cf14{\b :foreground_colour\b0 }}{\cf2{}}{\cf11{]}}}\par\pard
-\cbpat1{{\cf2{            text}} {\cf11{=}} {\cf2{section}}{\cf11{[}}{\cf2{}}{\cf14{\b :text\b0 }}{\cf2{}}{\cf11{]}}}\par\pard
-\cbpat1{{\cf2{            puts color}}{\cf11{.}}{\cf2{to_s}} {\cf11{+}} {\cf2{}}{\cf3{": "}}{\cf2{}} {\cf11{+}} {\cf2{text}\par\pard
-\cbpat1{}\par\pard
-\cbpat1{            text}}{\cf11{.}}{\cf2{each_char}} {\cf13{\b do\b0 }} {\cf2{}}{\cf11{|}}{\cf2{letter}}{\cf11{|}}}\par\pard
-\cbpat1{{\cf2{}}                {\cf13{\b if\b0 }} {\cf2{letter}} {\cf11{!=}} {\cf2{}}{\cf3{''}}{\cf2{}\par\pard
-\cbpat1{                    char}} {\cf11{=}} {\cf2{Patch}}{\cf11{.}}{\cf2{new}}}\par\pard
-\cbpat1{                    {\cf13{\b if\b0 }} {\cf2{color}} {\cf11{!=}} {\cf2{}}{\cf13{\b nil\b0 }}}\par\pard
-\cbpat1{{\cf2{                        rgb}} {\cf11{= [}}{\cf2{color}}{\cf11{.}}{\cf2{red}}{\cf11{,}} {\cf2{color}}{\cf11{.}}{\cf2{green}}{\cf11{,}} {\cf2{color}}{\cf11{.}}{\cf2{blue}}{\cf11{]}}}\par\pard
-\cbpat1{{\cf2{}}                    {\cf13{\b else\b0 }}}\par\pard
-\cbpat1{{\cf2{                        rgb}} {\cf11{= [}}{\cf2{}}{\cf4{{2}{5}{5}}}{\cf2{}}{\cf11{,}} {\cf2{}}{\cf4{{2}{5}{5}}}{\cf2{}}{\cf11{,}} {\cf2{}}{\cf4{{2}{5}{5}}}{\cf2{}}{\cf11{]}}}\par\pard
-\cbpat1{{\cf2{}}                    {\cf13{\b end\b0 }}}\par\pard
-\cbpat1{{\cf2{                    char}}{\cf11{.}}{\cf2{}}{\cf16{set}}{\cf2{}}{\cf11{(}}{\cf2{letter}}{\cf11{,}} {\cf2{rgb}}{\cf11{)}}}\par\pard
-\cbpat1{{\cf2{}}                    {\cf15{@chars}} {\cf2{}}{\cf11{<<}} {\cf2{char}}}\par\pard
-\cbpat1{                {\cf13{\b end\b0 }}}\par\pard
-\cbpat1{{\cf2{}}            {\cf13{\b end\b0 }}}\par\pard
-\cbpat1{{\cf2{}}        {\cf13{\b end\b0 }}}\par\pard
+\cbpat1{{\cf13{\b class\b0 }} {\cf2{Patch}}}\par\pard
+\cbpat1{    {\cf13{\b module\b0 }} {\cf2{Types}\par\pard
+\cbpat1{        SPACER}}{\cf11{=}}{\cf2{}}{\cf4{{0}}}}\par\pard
+\cbpat1{{\cf2{        SENTENCE_START}}{\cf11{=}}{\cf2{}}{\cf4{{1}}}}\par\pard
+\cbpat1{{\cf2{        WORD_START}}{\cf11{=}}{\cf2{}}{\cf4{{2}}}}\par\pard
+\cbpat1{{\cf2{        MID}}{\cf11{=}}{\cf2{}}{\cf4{{3}}}}\par\pard
+\cbpat1{{\cf2{}}        {\cf5{\i #WORD_END={4}\i0 }}}\par\pard
 \cbpat1{{\cf2{}}    {\cf13{\b end\b0 }}}\par\pard
 \cbpat1{{\cf2{}}}\par\pard
-\cbpat1{    {\cf13{\b def\b0 }} {\cf2{}}{\cf16{add_sentence}} {\cf2{}}{\cf11{(}}{\cf2{sentence}}{\cf11{)}}}\par\pard
-\cbpat1{{\cf2{        word_list}} {\cf11{=}} {\cf2{sentence}}{\cf11{.}}{\cf2{}}{\cf16{split}}{\cf2{}}{\cf11{(}}{\cf2{}}{\cf3{","}}{\cf2{}}{\cf11{)}}}\par\pard
-\cbpat1{{\cf2{        word_list}}{\cf11{.}}{\cf2{each}} {\cf13{\b do\b0 }} {\cf2{}}{\cf11{|}}{\cf2{word}}{\cf11{|}}}\par\pard
-\cbpat1{{\cf2{            character_list}} {\cf11{=}} {\cf2{word}}{\cf11{.}}{\cf2{}}{\cf16{split}}{\cf2{}}{\cf11{(}}{\cf2{}}{\cf3{" "}}{\cf2{}}{\cf11{)}}}\par\pard
-\cbpat1{{\cf2{            character_list}}{\cf11{.}}{\cf2{each}} {\cf13{\b do\b0 }} {\cf2{}}{\cf11{|}}{\cf2{char}}{\cf11{|}}}\par\pard
-\cbpat1{{\cf2{                word_chars}} {\cf11{<<}} {\cf2{patch}}{\cf11{.}}{\cf2{new}}{\cf11{.}}{\cf2{}}{\cf16{set}}{\cf2{}}{\cf11{(}}{\cf2{character}}{\cf11{)}}}\par\pard
-\cbpat1{{\cf2{}}            {\cf13{\b end\b0 }}}\par\pard
-\cbpat1{{\cf2{        word}}{\cf11{.}}{\cf2{last}}{\cf11{.}}{\cf2{role}} {\cf11{=}} {\cf2{}}{\cf3{"d"}}{\cf2{}}}\par\pard
-\cbpat1{        {\cf11{(}}{\cf2{sentence_chars}} {\cf11{<<}} {\cf2{word_chars}}{\cf11{).}}{\cf2{flatten}}{\cf11{!}}}\par\pard
-\cbpat1{{\cf2{}}        {\cf13{\b end\b0 }}}\par\pard
-\cbpat1{{\cf2{}}        {\cf11{(}}{\cf2{}}{\cf15{@chars}} {\cf2{}}{\cf11{<<}} {\cf2{sentence_chars}}{\cf11{).}}{\cf2{flatten}}{\cf11{!}}}\par\pard
+\cbpat1{    {\cf13{\b def\b0 }} {\cf2{}}{\cf16{set}}{\cf2{}}{\cf11{(}}{\cf2{char}}{\cf11{,}} {\cf2{color}}{\cf11{,}} {\cf2{type}} {\cf11{=}} {\cf2{Types}}{\cf11{:}}{\cf2{}}{\cf14{\b :MID\b0 }}{\cf2{}}{\cf11{)}}}\par\pard
+\cbpat1{{\cf2{}}        {\cf15{@char}} {\cf2{}}{\cf11{=}} {\cf2{char}}}\par\pard
+\cbpat1{        {\cf15{@color}} {\cf2{}}{\cf11{=}} {\cf2{ChunkyPNG}}{\cf11{:}}{\cf2{}}{\cf14{\b :Color\b0 }}{\cf2{}}{\cf11{:}}{\cf2{}}{\cf14{\b :rgb\b0 }}{\cf2{}}{\cf11{(}}{\cf2{color}}{\cf11{[}}{\cf2{}}{\cf4{{0}}}{\cf2{}}{\cf11{],}} {\cf2{color}}{\cf11{[}}{\cf2{}}{\cf4{{1}}}{\cf2{}}{\cf11{],}} {\cf2{color}}{\cf11{[}}{\cf2{}}{\cf4{{2}}}{\cf2{}}{\cf11{])}}}\par\pard
+\cbpat1{{\cf2{}}        {\cf15{@type}} {\cf2{}}{\cf11{=}} {\cf2{type}}}\par\pard
+\cbpat1{    {\cf13{\b end\b0 }}}\par\pard
+\cbpat1{{\cf2{}}}\par\pard
+\cbpat1{    {\cf13{\b def\b0 }} {\cf2{}}{\cf16{to_img}}{\cf2{}}{\cf11{(}}{\cf2{mode}}{\cf11{,}} {\cf2{width}}{\cf11{,}} {\cf2{height}}{\cf11{,}} {\cf2{offset}}{\cf11{)}}}\par\pard
+\cbpat1{{\cf2{}}        {\cf13{\b case\b0 }} {\cf2{mode}}}\par\pard
+\cbpat1{        {\cf13{\b when\b0 }} {\cf2{}}{\cf3{'patch'}}{\cf2{}\par\pard
+\cbpat1{            ret}} {\cf11{=}} {\cf2{}}{\cf16{to_patch}}{\cf2{}}{\cf11{(}}{\cf2{width}}{\cf11{,}} {\cf2{height}}{\cf11{,}} {\cf2{offset}}{\cf11{,}} {\cf2{}}{\cf15{@color}}{\cf2{}}{\cf11{)}}}\par\pard
+\cbpat1{{\cf2{}}        {\cf13{\b when\b0 }} {\cf2{}}{\cf3{'glyph_colored_simple'}}{\cf2{}\par\pard
+\cbpat1{            ret}} {\cf11{=}} {\cf2{}}{\cf16{to_glyph}}{\cf2{}}{\cf11{(}}{\cf2{width}}{\cf11{,}} {\cf2{}}{\cf15{@color}}{\cf2{}}{\cf11{)}}}\par\pard
+\cbpat1{{\cf2{}}        {\cf13{\b else\b0 }}}\par\pard
+\cbpat1{{\cf2{            puts}} {\cf3{'to_img INVALID MODE: "'}}{\cf2{}} {\cf11{+}} {\cf2{mode}}{\cf11{.}}{\cf2{to_s}} {\cf11{+}} {\cf2{}}{\cf3{'"'}}{\cf2{}}}\par\pard
+\cbpat1{        {\cf13{\b end\b0 }}}\par\pard
+\cbpat1{{\cf2{}}}\par\pard
+\cbpat1{        {\cf13{\b return\b0 }} {\cf2{ret}}}\par\pard
+\cbpat1{    {\cf13{\b end\b0 }}}\par\pard
+\cbpat1{{\cf2{}\par\pard
+\cbpat1{private}}}\par\pard
+\cbpat1{    {\cf13{\b def\b0 }} {\cf2{}}{\cf16{to_patch}}{\cf2{}}{\cf11{(}}{\cf2{width}}{\cf11{,}} {\cf2{height}}{\cf11{,}} {\cf2{offset}}{\cf11{,}} {\cf2{color}}{\cf11{)}}}\par\pard
+\cbpat1{{\cf2{        img}} {\cf11{=}} {\cf2{ChunkyPNG}}{\cf11{:}}{\cf2{}}{\cf14{\b :Image\b0 }}{\cf2{}}{\cf11{.}}{\cf2{}}{\cf16{new}}{\cf2{}}{\cf11{(}}{\cf2{width}} {\cf11{+}} {\cf2{offset}}{\cf11{,}} {\cf2{height}}{\cf11{,}} {\cf2{ChunkyPNG}}{\cf11{:}}{\cf2{}}{\cf14{\b :Color\b0 }}{\cf2{}}{\cf11{:}}{\cf2{}}{\cf14{\b :TRANSPARENT\b0 }}{\cf2{}}{\cf11{)}}}\par\pard
+\cbpat1{{\cf2{}}}\par\pard
+\cbpat1{        {\cf13{\b case\b0 }} {\cf2{}}{\cf15{@type}}}\par\pard
+\cbpat1{{\cf2{}}        {\cf13{\b when\b0 }} {\cf2{Types}}{\cf11{:}}{\cf2{}}{\cf14{\b :SPACER\b0 }}}\par\pard
+\cbpat1{{\cf2{            top_offset}} {\cf11{=}} {\cf2{}}{\cf4{{0}}}}\par\pard
+\cbpat1{{\cf2{            bottom_offset}} {\cf11{=}} {\cf2{}}{\cf4{{0}}}}\par\pard
+\cbpat1{{\cf2{}}        {\cf13{\b when\b0 }} {\cf2{Types}}{\cf11{:}}{\cf2{}}{\cf14{\b :SENTENCE_START\b0 }}}\par\pard
+\cbpat1{{\cf2{            top_offset}} {\cf11{=}} {\cf2{}}{\cf4{{0}}}}\par\pard
+\cbpat1{{\cf2{            bottom_offset}} {\cf11{=}} {\cf2{}}{\cf4{{0}}}}\par\pard
+\cbpat1{{\cf2{}}        {\cf13{\b when\b0 }} {\cf2{Types}}{\cf11{:}}{\cf2{}}{\cf14{\b :WORD_START\b0 }}}\par\pard
+\cbpat1{{\cf2{            top_offset}} {\cf11{=}} {\cf2{}}{\cf4{{0}}}}\par\pard
+\cbpat1{{\cf2{            bottom_offset}} {\cf11{=}} {\cf2{offset}}}\par\pard
+\cbpat1{        {\cf13{\b when\b0 }} {\cf2{Types}}{\cf11{:}}{\cf2{}}{\cf14{\b :MID\b0 }}}\par\pard
+\cbpat1{{\cf2{            top_offset}} {\cf11{=}} {\cf2{offset}\par\pard
+\cbpat1{            bottom_offset}} {\cf11{=}} {\cf2{}}{\cf4{{0}}}}\par\pard
+\cbpat1{{\cf2{}}        {\cf13{\b else\b0 }}}\par\pard
+\cbpat1{{\cf2{            puts}} {\cf3{'to_patch invalid type: "'}}{\cf2{}} {\cf11{+}} {\cf2{}}{\cf15{@type}}{\cf2{}}{\cf11{.}}{\cf2{to_s}} {\cf11{+}} {\cf2{}}{\cf3{'"'}}{\cf2{}}}\par\pard
+\cbpat1{        {\cf13{\b end\b0 }}}\par\pard
+\cbpat1{{\cf2{}\par\pard
+\cbpat1{        points}} {\cf11{=}} {\cf2{Array}}{\cf11{.}}{\cf2{}}{\cf16{new}}{\cf2{}}{\cf11{()}}}\par\pard
+\cbpat1{{\cf2{        points}}{\cf11{[}}{\cf2{}}{\cf4{{0}}}{\cf2{}}{\cf11{] =}} {\cf2{ChunkyPNG}}{\cf11{:}}{\cf2{}}{\cf14{\b :Point\b0 }}{\cf2{}}{\cf11{(}}{\cf2{top_offset}}{\cf11{,}} {\cf2{}}{\cf4{{0}}}{\cf2{}}{\cf11{)}}}\par\pard
+\cbpat1{{\cf2{        points}}{\cf11{[}}{\cf2{}}{\cf4{{1}}}{\cf2{}}{\cf11{] =}} {\cf2{ChunkyPNG}}{\cf11{:}}{\cf2{}}{\cf14{\b :Point\b0 }}{\cf2{}}{\cf11{(}}{\cf2{}}{\cf4{{6}{0}}}{\cf2{}}{\cf11{,}} {\cf2{}}{\cf4{{0}}}{\cf2{}}{\cf11{)}}}\par\pard
+\cbpat1{{\cf2{        points}}{\cf11{[}}{\cf2{}}{\cf4{{2}}}{\cf2{}}{\cf11{] =}} {\cf2{ChunkyPNG}}{\cf11{:}}{\cf2{}}{\cf14{\b :Point\b0 }}{\cf2{}}{\cf11{(}}{\cf2{}}{\cf4{{6}{0}}}{\cf2{}}{\cf11{,}} {\cf2{height}}{\cf11{)}}}\par\pard
+\cbpat1{{\cf2{        points}}{\cf11{[}}{\cf2{}}{\cf4{{3}}}{\cf2{}}{\cf11{] =}} {\cf2{ChunkyPNG}}{\cf11{:}}{\cf2{}}{\cf14{\b :Point\b0 }}{\cf2{}}{\cf11{(}}{\cf2{bottom_offset}}{\cf11{,}} {\cf2{height}}{\cf11{)}}}\par\pard
+\cbpat1{{\cf2{        img}}{\cf11{.}}{\cf2{}}{\cf16{polygon}}{\cf2{}}{\cf11{(}}{\cf2{points}}{\cf11{,}} {\cf2{}}{\cf15{@color}}{\cf2{}}{\cf11{,}} {\cf2{}}{\cf15{@color}}{\cf2{}}{\cf11{)}}}\par\pard
 \cbpat1{{\cf2{}}    {\cf13{\b end\b0 }}}\par\pard
 \cbpat1{{\cf2{}}}\par\pard
-\cbpat1{    {\cf13{\b def\b0 }} {\cf2{generate}\par\pard
-\cbpat1{        png}} {\cf11{=}} {\cf2{ChunkyPNG}}{\cf11{:}}{\cf2{}}{\cf14{\b :Image\b0 }}{\cf2{}}{\cf11{.}}{\cf2{}}{\cf16{new}}{\cf2{}}{\cf11{(}}{\cf2{}}{\cf4{{1}{9}{2}{0}}}{\cf2{}}{\cf11{,}} {\cf2{}}{\cf4{{1}{0}{8}{0}}}{\cf2{}}{\cf11{,}} {\cf2{ChunkyPNG}}{\cf11{:}}{\cf2{}}{\cf14{\b :Color\b0 }}{\cf2{}}{\cf11{(}}{\cf2{}}{\cf3{'purple'}}{\cf2{}}{\cf11{))}}}\par\pard
-\cbpat1{{\cf2{}}}\par\pard
-\cbpat1{        {\cf15{@width}} {\cf2{}}{\cf11{=}} {\cf2{}}{\cf4{{2}{0}}}}\par\pard
-\cbpat1{{\cf2{}}        {\cf15{@height}} {\cf2{}}{\cf11{= (}}{\cf2{}}{\cf15{@width}} {\cf2{}}{\cf11{*}} {\cf2{}}{\cf4{{1}.{6}}}{\cf2{}}{\cf11{).}}{\cf2{floor}\par\pard
-\cbpat1{        idx}} {\cf11{=}} {\cf2{}}{\cf4{{0}}}}\par\pard
-\cbpat1{{\cf2{        loc_x}} {\cf11{=}} {\cf2{}}{\cf4{{0}}}}\par\pard
-\cbpat1{{\cf2{        loc_y}} {\cf11{=}} {\cf2{}}{\cf4{{0}}}}\par\pard
-\cbpat1{{\cf2{}}}\par\pard
-\cbpat1{        {\cf13{\b while\b0 }} {\cf2{loc_y}} {\cf11{<=}} {\cf2{}}{\cf4{{1}{0}{8}{0}}} {\cf2{}}{\cf11{&&}} {\cf2{}}{\cf15{@chars}}{\cf2{}}{\cf11{.}}{\cf2{each}}{\cf11{.}}{\cf2{count}} {\cf11{>}} {\cf2{idx}} {\cf13{\b do\b0 }}}\par\pard
-\cbpat1{{\cf2{}}            {\cf13{\b begin\b0 }}}\par\pard
-\cbpat1{{\cf2{                char_img}} {\cf11{=}} {\cf2{}}{\cf15{@chars}}{\cf2{}}{\cf11{[}}{\cf2{idx}}{\cf11{].}}{\cf2{}}{\cf16{to_img}}{\cf2{}}{\cf11{(}}{\cf2{}}{\cf3{'patch'}}{\cf2{}}{\cf11{,}} {\cf2{}}{\cf15{@width}}{\cf2{}}{\cf11{,}} {\cf2{}}{\cf15{@height}}{\cf2{}}{\cf11{)}}}\par\pard
-\cbpat1{{\cf2{                png}}{\cf11{.}}{\cf2{compose}}{\cf11{!(}}{\cf2{char_img}}{\cf11{,}} {\cf2{loc_x}}{\cf11{,}} {\cf2{loc_y}}{\cf11{)}}}\par\pard
-\cbpat1{{\cf2{                loc_x}} {\cf11{+=}} {\cf2{}}{\cf15{@width}}}\par\pard
-\cbpat1{{\cf2{                idx}} {\cf11{+=}} {\cf2{}}{\cf4{{1}}}}\par\pard
-\cbpat1{{\cf2{                puts}} {\cf3{"}}{\cf12{#}}{\cf3{"}}{\cf2{}} {\cf11{+}} {\cf2{idx}}{\cf11{.}}{\cf2{to_s}} {\cf11{+}} {\cf2{}}{\cf3{": ("}}{\cf2{}} {\cf11{+}} {\cf2{loc_x}}{\cf11{.}}{\cf2{to_s}} {\cf11{+}} {\cf2{}}{\cf3{", "}}{\cf2{}} {\cf11{+}} {\cf2{loc_y}}{\cf11{.}}{\cf2{to_s}} {\cf11{+}} {\cf2{}}{\cf3{")}}{\cf2{}}{\cf3{"}}}\par\pard
-\cbpat1{{\cf3{            rescue ChunkyPNG::OutOfBounds}}}\par\pard
-\cbpat1{{\cf3{                loc_x = {0}}}}\par\pard
-\cbpat1{{\cf3{                loc_y += @height}}}\par\pard
-\cbpat1{{\cf3{            end}}}\par\pard
-\cbpat1{{\cf3{        end}}}\par\pard
-\cbpat1{{\cf3{}}}\par\pard
-\cbpat1{{\cf3{        puts "}}{\cf2{finished}}{\cf11{!}} {\cf2{saving}}{\cf11{...}}{\cf2{}}{\cf3{"}}}\par\pard
-\cbpat1{{\cf3{        png.metadata['Author'] = "}}{\cf2{Mercotui}}{\cf3{'s bin_to_png"}}}\par\pard
-\cbpat1{{\cf3{        png.save('}}{\cf2{test}}{\cf11{.}}{\cf2{png}}{\cf3{')}}{\cf2{}\par\pard
-\cbpat1{        puts}} {\cf3{"saved, exiting."}}{\cf2{}}}\par\pard
+\cbpat1{    {\cf13{\b def\b0 }} {\cf2{}}{\cf16{to_glyph}}{\cf2{}}{\cf11{(}}{\cf2{width}}{\cf11{,}} {\cf2{color}}{\cf11{)}}}\par\pard
+\cbpat1{{\cf2{}}        {\cf5{\i #img = ChunkyPNG::Image.new(width + offset, height, ChunkyPNG::Color::TRANSPARENT)\i0 }}}\par\pard
+\cbpat1{{\cf2{        img}} {\cf11{=}} {\cf2{ChunkyPNG}}{\cf11{:}}{\cf2{}}{\cf14{\b :Image\b0 }}{\cf2{}}{\cf11{.}}{\cf2{}}{\cf16{new}}{\cf2{}}{\cf11{(}}{\cf2{}}{\cf4{{6}{0}{0}}}{\cf2{}}{\cf11{,}} {\cf2{}}{\cf4{{3}{0}{0}}}{\cf2{}}{\cf11{,}} {\cf2{ChunkyPNG}}{\cf11{:}}{\cf2{}}{\cf14{\b :Color\b0 }}{\cf2{}}{\cf11{:}}{\cf2{}}{\cf14{\b :WHITE\b0 }}{\cf2{}}{\cf11{)}}}\par\pard
+\cbpat1{{\cf2{        wr}} {\cf11{=}} {\cf2{ChunkyText}}{\cf11{:}}{\cf2{}}{\cf14{\b :Writer\b0 }}{\cf2{}}{\cf11{.}}{\cf2{}}{\cf16{new}}{\cf2{}}{\cf11{(}}{\cf2{img}}{\cf11{,}}{\cf2{}}{\cf3{'default_font'}}{\cf2{}}{\cf11{)}}}\par\pard
+\cbpat1{{\cf2{        wr}}{\cf11{.}}{\cf2{size}} {\cf11{=}} {\cf2{}}{\cf4{{3}{0}}}}\par\pard
+\cbpat1{{\cf2{        wr}}{\cf11{.}}{\cf2{color}} {\cf11{=}} {\cf2{ChunkyPNG}}{\cf11{:}}{\cf2{}}{\cf14{\b :Color\b0 }}{\cf2{}}{\cf11{:}}{\cf2{}}{\cf14{\b :BLACK\b0 }}}\par\pard
+\cbpat1{{\cf2{        wr}}{\cf11{.}}{\cf2{}}{\cf16{write}}{\cf2{}}{\cf11{(}}{\cf2{}}{\cf3{"*"}}{\cf2{}}{\cf11{,}}{\cf2{}}{\cf4{{1}{0}{0}}}{\cf2{}}{\cf11{,}}{\cf2{}}{\cf4{{1}{5}{0}}}{\cf2{}}{\cf11{)}}}\par\pard
+\cbpat1{{\cf2{}}        {\cf13{\b return\b0 }} {\cf2{img}}}\par\pard
 \cbpat1{    {\cf13{\b end\b0 }}}\par\pard
 \cbpat1{{\cf2{}}{\cf13{\b end\b0 }}{\cf2{}}}\par\pard
 \cbpat1{}}
