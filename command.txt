@@ -1,0 +1,1 @@
+objdump -D -j .text vmlinuz-4.3.3-301.fc23.x86_64

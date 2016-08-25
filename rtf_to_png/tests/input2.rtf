@@ -1,0 +1,260 @@
+{\rtf1\ansi\uc0 \deff1{\fonttbl{\f1\fmodern\fprq1\fcharset0 Courier New;}}{\colortbl;\red224\green234\blue238;\red00\green00\blue00;\red191\green03\blue03;\red176\green126\blue00;\red131\green129\blue131;\red131\green129\blue131;\red255\green00\blue255;\red00\green130\blue00;\red129\green129\blue00;\red85\green85\blue85;\red00\green00\blue00;\red00\green87\blue174;\red00\green00\blue00;\red00\green87\blue174;\red00\green00\blue00;\red01\green01\blue129;}
+\paperw11905\paperh16837\margl1134\margr1134\margt1134\margb1134\sectd\plain\f1\fs20
+\pard \cbpat1{{\cf2{}}{\cf8{#include}} {\cf9{"dns.hpp"}}{\cf8{}}}\par\pard
+\cbpat1{{\cf2{}\par\pard
+\cbpat1{dns}}{\cf11{::}}{\cf2{}}{\cf16{dns}} {\cf2{}}{\cf11{(}}{\cf2{config_parser}}{\cf11{&}} {\cf2{config}}{\cf11{)}}}\par\pard
+\cbpat1{{\cf2{}}{\cf11{:}} {\cf2{mosqpp}}{\cf11{::}}{\cf2{mosquittopp}}{\cf11{\{ (}}{\cf2{config}}{\cf11{.}}{\cf2{}}{\cf16{clientid}} {\cf2{}}{\cf11{()).}}{\cf2{}}{\cf16{c_str}} {\cf2{}}{\cf11{() \}}}}\par\pard
+\cbpat1{{\cf2{}}{\cf11{,}} {\cf2{_mtx}}{\cf11{\{\}}}}\par\pard
+\cbpat1{{\cf2{}}{\cf11{,}} {\cf2{}}{\cf16{CONFIG}} {\cf2{}}{\cf11{(}}{\cf2{config}}{\cf11{)}}}\par\pard
+\cbpat1{{\cf2{}}{\cf11{,}} {\cf2{}}{\cf16{_cache_path}} {\cf2{}}{\cf11{(}}{\cf2{}}{\cf3{"/tmp/dns_sound_cache/"}}{\cf2{}}{\cf11{)}}}\par\pard
+\cbpat1{{\cf2{}}{\cf11{,}} {\cf2{}}{\cf16{_master_volume}} {\cf2{}}{\cf11{(}}{\cf2{}}{\cf4{{0}}}{\cf2{}}{\cf11{)}}}\par\pard
+\cbpat1{{\cf2{}}{\cf11{,}} {\cf2{}}{\cf16{_sources}} {\cf2{}}{\cf11{()}}}\par\pard
+\cbpat1{{\cf2{}}{\cf11{,}} {\cf2{}}{\cf16{_rwf_volumes}} {\cf2{}}{\cf11{()}}}\par\pard
+\cbpat1{{\cf2{}}{\cf11{,}} {\cf2{}}{\cf16{_musics}} {\cf2{}}{\cf11{()}}}\par\pard
+\cbpat1{{\cf2{}}{\cf11{,}} {\cf2{}}{\cf16{_speaker_data}} {\cf2{}}{\cf11{()}}}\par\pard
+\cbpat1{{\cf2{}}{\cf11{,}} {\cf2{}}{\cf16{_data_parser}} {\cf2{}}{\cf11{() \{}}}\par\pard
+\cbpat1{{\cf2{}}    {\cf16{will_set}} {\cf2{}}{\cf11{(}}{\cf2{CONFIG}}{\cf11{.}}{\cf2{}}{\cf16{topic}} {\cf2{}}{\cf11{(}}{\cf2{}}{\cf3{"online"}}{\cf2{}}{\cf11{).}}{\cf2{}}{\cf16{c_str}} {\cf2{}}{\cf11{(),}} {\cf2{CONFIG}}{\cf11{.}}{\cf2{}}{\cf16{clientid}} {\cf2{}}{\cf11{().}}{\cf2{}}{\cf16{size}} {\cf2{}}{\cf11{(),}}}\par\pard
+\cbpat1{{\cf2{    CONFIG}}{\cf11{.}}{\cf2{}}{\cf16{clientid}} {\cf2{}}{\cf11{().}}{\cf2{}}{\cf16{c_str}} {\cf2{}}{\cf11{(),}} {\cf2{MQTT_QoS_{0}}}{\cf11{);}}}\par\pard
+\cbpat1{{\cf2{}}}\par\pard
+\cbpat1{    {\cf16{connect}} {\cf2{}}{\cf11{(}}{\cf2{CONFIG}}{\cf11{.}}{\cf2{}}{\cf16{broker}} {\cf2{}}{\cf11{().}}{\cf2{uri}}{\cf11{.}}{\cf2{}}{\cf16{c_str}} {\cf2{}}{\cf11{(),}} {\cf2{CONFIG}}{\cf11{.}}{\cf2{}}{\cf16{broker}} {\cf2{}}{\cf11{().}}{\cf2{port}}{\cf11{,}} {\cf2{MQTT_KEEP_ALIVE}}{\cf11{);}}}\par\pard
+\cbpat1{{\cf2{}}}\par\pard
+\cbpat1{    {\cf13{\b if\b0 }} {\cf2{}}{\cf11{(}}{\cf2{}}{\cf16{mkdir}} {\cf2{}}{\cf11{(}}{\cf2{_cache_path}}{\cf11{.}}{\cf2{}}{\cf16{c_str}} {\cf2{}}{\cf11{(),}} {\cf2{S_IRWXU}} {\cf11{|}} {\cf2{S_IRWXG}} {\cf11{|}} {\cf2{S_IROTH}} {\cf11{|}} {\cf2{S_IXOTH}}{\cf11{) !=}} {\cf2{}}{\cf4{{0}}}{\cf2{}}{\cf11{) \{}}}\par\pard
+\cbpat1{{\cf2{}}        {\cf13{\b if\b0 }} {\cf2{}}{\cf11{(}}{\cf2{errno}} {\cf11{!=}} {\cf2{EEXIST}}{\cf11{) \{}}}\par\pard
+\cbpat1{{\cf2{}}            {\cf13{\b throw\b0 }} {\cf2{}}{\cf11{(}}{\cf2{std}}{\cf11{::}}{\cf2{}}{\cf16{runtime_error}} {\cf2{}}{\cf11{(}}{\cf2{}}{\cf3{"could not create cache folder"}}{\cf2{}} {\cf11{+}} {\cf2{_cache_path}}{\cf11{));}}}\par\pard
+\cbpat1{{\cf2{}}        {\cf11{\}}}}\par\pard
+\cbpat1{{\cf2{}}    {\cf11{\}}}}\par\pard
+\cbpat1{{\cf2{}}{\cf11{\}}}}\par\pard
+\cbpat1{{\cf2{}\par\pard
+\cbpat1{dns}}{\cf11{::~}}{\cf2{}}{\cf16{dns}} {\cf2{}}{\cf11{() \{}}}\par\pard
+\cbpat1{{\cf2{}}    {\cf16{publish}} {\cf2{}}{\cf11{(}}{\cf2{}}{\cf15{\b nullptr\b0 }}{\cf2{}}{\cf11{,}} {\cf2{CONFIG}}{\cf11{.}}{\cf2{}}{\cf16{topic}} {\cf2{}}{\cf11{(}}{\cf2{}}{\cf3{"offline"}}{\cf2{}}{\cf11{).}}{\cf2{}}{\cf16{c_str}} {\cf2{}}{\cf11{(),}}}\par\pard
+\cbpat1{{\cf2{    CONFIG}}{\cf11{.}}{\cf2{}}{\cf16{clientid}} {\cf2{}}{\cf11{().}}{\cf2{}}{\cf16{size}} {\cf2{}}{\cf11{(),}} {\cf2{CONFIG}}{\cf11{.}}{\cf2{}}{\cf16{clientid}} {\cf2{}}{\cf11{().}}{\cf2{}}{\cf16{c_str}} {\cf2{}}{\cf11{(),}} {\cf2{MQTT_QoS_{0}}}{\cf11{);}}}\par\pard
+\cbpat1{{\cf2{}}    {\cf16{disconnect}} {\cf2{}}{\cf11{();}}}\par\pard
+\cbpat1{{\cf2{}}{\cf11{\}}}}\par\pard
+\cbpat1{{\cf2{}}}\par\pard
+\cbpat1{{\cf14{void}} {\cf2{dns}}{\cf11{::}}{\cf2{}}{\cf16{on_connect}} {\cf2{}}{\cf11{(}}{\cf2{}}{\cf14{int}} {\cf2{rc}}{\cf11{) \{}}}\par\pard
+\cbpat1{{\cf2{}}    {\cf16{LOG}} {\cf2{}}{\cf11{(}}{\cf2{INFO}}{\cf11{) <<}} {\cf2{}}{\cf3{"MQTT:}}{\cf7{\\t}}{\cf3{connected with broker, rc="}}{\cf2{}} {\cf11{<<}} {\cf2{rc}}{\cf11{;}}}\par\pard
+\cbpat1{{\cf2{}}    {\cf13{\b if\b0 }} {\cf2{}}{\cf11{(}}{\cf2{rc}} {\cf11{==}} {\cf2{}}{\cf4{{0}}}{\cf2{}}{\cf11{) \{}}}\par\pard
+\cbpat1{{\cf2{}}        {\cf16{publish}} {\cf2{}}{\cf11{(}}{\cf2{}}{\cf15{\b nullptr\b0 }}{\cf2{}}{\cf11{,}} {\cf2{CONFIG}}{\cf11{.}}{\cf2{}}{\cf16{topic}} {\cf2{}}{\cf11{(}}{\cf2{}}{\cf3{"online"}}{\cf2{}}{\cf11{).}}{\cf2{}}{\cf16{c_str}} {\cf2{}}{\cf11{(),}}}\par\pard
+\cbpat1{{\cf2{        CONFIG}}{\cf11{.}}{\cf2{}}{\cf16{clientid}} {\cf2{}}{\cf11{().}}{\cf2{}}{\cf16{size}} {\cf2{}}{\cf11{(),}} {\cf2{CONFIG}}{\cf11{.}}{\cf2{}}{\cf16{clientid}} {\cf2{}}{\cf11{().}}{\cf2{}}{\cf16{c_str}} {\cf2{}}{\cf11{(),}} {\cf2{MQTT_QoS_{0}}}{\cf11{);}}}\par\pard
+\cbpat1{{\cf2{}}        {\cf16{subscribe}} {\cf2{}}{\cf11{(}}{\cf2{}}{\cf15{\b nullptr\b0 }}{\cf2{}}{\cf11{,}} {\cf2{CONFIG}}{\cf11{.}}{\cf2{}}{\cf16{topic}} {\cf2{}}{\cf11{(}}{\cf2{}}{\cf3{"request_online"}}{\cf2{}}{\cf11{).}}{\cf2{}}{\cf16{c_str}} {\cf2{}}{\cf11{(),}} {\cf2{MQTT_QoS_{0}}}{\cf11{);}}}\par\pard
+\cbpat1{{\cf2{}}        {\cf16{subscribe}} {\cf2{}}{\cf11{(}}{\cf2{}}{\cf15{\b nullptr\b0 }}{\cf2{}}{\cf11{,}} {\cf2{CONFIG}}{\cf11{.}}{\cf2{}}{\cf16{topic}} {\cf2{}}{\cf11{(}}{\cf2{}}{\cf3{"request_client_data"}}{\cf2{}}{\cf11{).}}{\cf2{}}{\cf16{c_str}} {\cf2{}}{\cf11{(),}} {\cf2{MQTT_QoS_{0}}}{\cf11{);}}}\par\pard
+\cbpat1{{\cf2{}}        {\cf16{subscribe}} {\cf2{}}{\cf11{(}}{\cf2{}}{\cf15{\b nullptr\b0 }}{\cf2{}}{\cf11{, (}}{\cf2{CONFIG}}{\cf11{.}}{\cf2{}}{\cf16{topic}} {\cf2{}}{\cf11{(}}{\cf2{}}{\cf3{"clients_data"}}{\cf2{}}{\cf11{) +}} {\cf2{}}{\cf3{"/+"}}{\cf2{}}{\cf11{).}}{\cf2{}}{\cf16{c_str}} {\cf2{}}{\cf11{(),}} {\cf2{MQTT_QoS_{0}}}{\cf11{);}}}\par\pard
+\cbpat1{{\cf2{}}        {\cf16{subscribe}} {\cf2{}}{\cf11{(}}{\cf2{}}{\cf15{\b nullptr\b0 }}{\cf2{}}{\cf11{,}} {\cf2{CONFIG}}{\cf11{.}}{\cf2{}}{\cf16{topic}} {\cf2{}}{\cf11{(}}{\cf2{}}{\cf3{"music_volume"}}{\cf2{}}{\cf11{).}}{\cf2{}}{\cf16{c_str}} {\cf2{}}{\cf11{(),}} {\cf2{MQTT_QoS_{0}}}{\cf11{);}}}\par\pard
+\cbpat1{{\cf2{}}        {\cf16{subscribe}} {\cf2{}}{\cf11{(}}{\cf2{}}{\cf15{\b nullptr\b0 }}{\cf2{}}{\cf11{,}} {\cf2{CONFIG}}{\cf11{.}}{\cf2{}}{\cf16{topic}} {\cf2{}}{\cf11{(}}{\cf2{}}{\cf3{"music_status"}}{\cf2{}}{\cf11{).}}{\cf2{}}{\cf16{c_str}} {\cf2{}}{\cf11{(),}} {\cf2{MQTT_QoS_{0}}}{\cf11{);}}}\par\pard
+\cbpat1{{\cf2{}}        {\cf16{subscribe}} {\cf2{}}{\cf11{(}}{\cf2{}}{\cf15{\b nullptr\b0 }}{\cf2{}}{\cf11{,}} {\cf2{CONFIG}}{\cf11{.}}{\cf2{}}{\cf16{topic}} {\cf2{}}{\cf11{(}}{\cf2{}}{\cf3{"music_sources"}}{\cf2{}}{\cf11{).}}{\cf2{}}{\cf16{c_str}} {\cf2{}}{\cf11{(),}} {\cf2{MQTT_QoS_{0}}}{\cf11{);}}}\par\pard
+\cbpat1{{\cf2{}}    {\cf11{\}}}}\par\pard
+\cbpat1{{\cf2{}}{\cf11{\}}}}\par\pard
+\cbpat1{{\cf2{}}}\par\pard
+\cbpat1{{\cf14{void}} {\cf2{dns}}{\cf11{::}}{\cf2{}}{\cf16{on_disconnect}} {\cf2{}}{\cf11{(}}{\cf2{}}{\cf14{int}} {\cf2{rc}}{\cf11{) \{}}}\par\pard
+\cbpat1{{\cf2{}}    {\cf13{\b if\b0 }} {\cf2{}}{\cf11{(!(}}{\cf2{rc}} {\cf11{==}} {\cf2{}}{\cf4{{0}}}{\cf2{}}{\cf11{)) \{}}}\par\pard
+\cbpat1{{\cf2{}}        {\cf16{publish}} {\cf2{}}{\cf11{(}}{\cf2{}}{\cf15{\b nullptr\b0 }}{\cf2{}}{\cf11{,}} {\cf2{CONFIG}}{\cf11{.}}{\cf2{}}{\cf16{topic}} {\cf2{}}{\cf11{(}}{\cf2{}}{\cf3{"offline"}}{\cf2{}}{\cf11{).}}{\cf2{}}{\cf16{c_str}} {\cf2{}}{\cf11{(),}}}\par\pard
+\cbpat1{{\cf2{        CONFIG}}{\cf11{.}}{\cf2{}}{\cf16{clientid}} {\cf2{}}{\cf11{().}}{\cf2{}}{\cf16{size}} {\cf2{}}{\cf11{(),}} {\cf2{CONFIG}}{\cf11{.}}{\cf2{}}{\cf16{clientid}} {\cf2{}}{\cf11{().}}{\cf2{}}{\cf16{c_str}} {\cf2{}}{\cf11{(),}} {\cf2{MQTT_QoS_{0}}}{\cf11{);}}}\par\pard
+\cbpat1{{\cf2{}}    {\cf11{\}}}}\par\pard
+\cbpat1{{\cf2{}}    {\cf16{LOG}} {\cf2{}}{\cf11{(}}{\cf2{ERROR}}{\cf11{) <<}} {\cf2{}}{\cf3{"dns disconnected from broker, rc="}}{\cf2{}} {\cf11{<<}} {\cf2{rc}}{\cf11{;}}}\par\pard
+\cbpat1{{\cf2{}}{\cf11{\}}}}\par\pard
+\cbpat1{{\cf2{}}}\par\pard
+\cbpat1{{\cf14{void}} {\cf2{dns}}{\cf11{::}}{\cf2{}}{\cf16{on_message}} {\cf2{}}{\cf11{(}}{\cf2{}}{\cf14{const}} {\cf2{mosquitto_message}}{\cf11{*}} {\cf2{message}}{\cf11{) \{}}}\par\pard
+\cbpat1{{\cf2{    std}}{\cf11{::}}{\cf2{unique_lock}}{\cf11{<}}{\cf2{std}}{\cf11{::}}{\cf2{mutex}}{\cf11{>}} {\cf2{lk}}{\cf11{\{}} {\cf2{_mtx}} {\cf11{\};}}}\par\pard
+\cbpat1{{\cf2{    std}}{\cf11{::}}{\cf2{string topic}}{\cf11{\{}} {\cf2{message}}{\cf11{->}}{\cf2{topic}} {\cf11{\};}}}\par\pard
+\cbpat1{{\cf2{}}}\par\pard
+\cbpat1{    {\cf16{LOG}} {\cf2{}}{\cf11{(}}{\cf2{DEBUG}}{\cf11{) <<}} {\cf2{}}{\cf3{"MQTT:}}{\cf7{\\t}}{\cf3{message: "}}{\cf2{}}}\par\pard
+\cbpat1{                {\cf11{<<}} {\cf2{}}{\cf3{"topic="}}{\cf2{}} {\cf11{<<}} {\cf2{message}}{\cf11{->}}{\cf2{topic}} {\cf11{<<}} {\cf2{}}{\cf3{", payload="}}{\cf2{}} {\cf11{<< (}}{\cf2{}}{\cf14{char}}{\cf2{}}{\cf11{*)}}{\cf2{message}}{\cf11{->}}{\cf2{payload}}{\cf11{;}}}\par\pard
+\cbpat1{{\cf2{}}}\par\pard
+\cbpat1{    {\cf13{\b if\b0 }} {\cf2{}}{\cf11{(}}{\cf2{topic}} {\cf11{==}} {\cf2{CONFIG}}{\cf11{.}}{\cf2{}}{\cf16{topic}} {\cf2{}}{\cf11{(}}{\cf2{}}{\cf3{"request_online"}}{\cf2{}}{\cf11{)) \{}}}\par\pard
+\cbpat1{{\cf2{}}        {\cf16{publish}} {\cf2{}}{\cf11{(}}{\cf2{}}{\cf15{\b nullptr\b0 }}{\cf2{}}{\cf11{,}} {\cf2{CONFIG}}{\cf11{.}}{\cf2{}}{\cf16{topic}} {\cf2{}}{\cf11{(}}{\cf2{}}{\cf3{"online"}}{\cf2{}}{\cf11{).}}{\cf2{}}{\cf16{c_str}} {\cf2{}}{\cf11{(),}}}\par\pard
+\cbpat1{{\cf2{        CONFIG}}{\cf11{.}}{\cf2{}}{\cf16{clientid}} {\cf2{}}{\cf11{().}}{\cf2{}}{\cf16{size}} {\cf2{}}{\cf11{(),}} {\cf2{CONFIG}}{\cf11{.}}{\cf2{}}{\cf16{clientid}} {\cf2{}}{\cf11{().}}{\cf2{}}{\cf16{c_str}} {\cf2{}}{\cf11{(),}} {\cf2{MQTT_QoS_{0}}}{\cf11{);}}}\par\pard
+\cbpat1{{\cf2{}}    {\cf11{\}}}}\par\pard
+\cbpat1{{\cf2{}}}\par\pard
+\cbpat1{    {\cf13{\b if\b0 }} {\cf2{}}{\cf11{(}}{\cf2{topic}} {\cf11{==}} {\cf2{CONFIG}}{\cf11{.}}{\cf2{}}{\cf16{topic}} {\cf2{}}{\cf11{(}}{\cf2{}}{\cf3{"request_client_data"}}{\cf2{}}{\cf11{)) \{}}}\par\pard
+\cbpat1{{\cf2{}}        {\cf14{const}} {\cf2{std}}{\cf11{::}}{\cf2{string str_payload}} {\cf11{=}} {\cf2{_data_parser}}{\cf11{.}}{\cf2{}}{\cf16{composeClientData}} {\cf2{}}{\cf11{(}}{\cf2{_speaker_data}}{\cf11{);}}}\par\pard
+\cbpat1{{\cf2{}}        {\cf16{publish}} {\cf2{}}{\cf11{(}}{\cf2{}}{\cf15{\b nullptr\b0 }}{\cf2{}}{\cf11{, (}}{\cf2{}}{\cf14{char}}{\cf2{}}{\cf11{*)}}{\cf2{message}}{\cf11{->}}{\cf2{payload}}{\cf11{,}} {\cf2{str_payload}}{\cf11{.}}{\cf2{}}{\cf16{size}} {\cf2{}}{\cf11{(),}}}\par\pard
+\cbpat1{{\cf2{        str_payload}}{\cf11{.}}{\cf2{}}{\cf16{c_str}} {\cf2{}}{\cf11{(),}} {\cf2{MQTT_QoS_{0}}}{\cf11{);}}}\par\pard
+\cbpat1{{\cf2{}}    {\cf11{\}}}}\par\pard
+\cbpat1{{\cf2{}}}\par\pard
+\cbpat1{    {\cf13{\b if\b0 }} {\cf2{}}{\cf11{(}}{\cf2{topic}} {\cf11{==}} {\cf2{CONFIG}}{\cf11{.}}{\cf2{}}{\cf16{topic}} {\cf2{}}{\cf11{(}}{\cf2{}}{\cf3{"music_volume"}}{\cf2{}}{\cf11{)) \{}}}\par\pard
+\cbpat1{{\cf2{}}        {\cf16{setMasterVolume}} {\cf2{}}{\cf11{(}}{\cf2{std}}{\cf11{::}}{\cf2{string}}{\cf11{\{ (}}{\cf2{}}{\cf14{char}}{\cf2{}}{\cf11{*)}}{\cf2{message}}{\cf11{->}}{\cf2{payload}} {\cf11{\});}}}\par\pard
+\cbpat1{{\cf2{}}    {\cf11{\}}}}\par\pard
+\cbpat1{{\cf2{}}}\par\pard
+\cbpat1{    {\cf13{\b if\b0 }} {\cf2{}}{\cf11{(}}{\cf2{topic}} {\cf11{==}} {\cf2{CONFIG}}{\cf11{.}}{\cf2{}}{\cf16{topic}} {\cf2{}}{\cf11{(}}{\cf2{}}{\cf3{"music_status"}}{\cf2{}}{\cf11{)) \{}}}\par\pard
+\cbpat1{{\cf2{}}        {\cf16{setPPS}} {\cf2{}}{\cf11{(}}{\cf2{std}}{\cf11{::}}{\cf2{string}}{\cf11{\{ (}}{\cf2{}}{\cf14{char}}{\cf2{}}{\cf11{*)}}{\cf2{message}}{\cf11{->}}{\cf2{payload}} {\cf11{\});}}}\par\pard
+\cbpat1{{\cf2{}}    {\cf11{\}}}}\par\pard
+\cbpat1{{\cf2{}}}\par\pard
+\cbpat1{    {\cf13{\b if\b0 }} {\cf2{}}{\cf11{(}}{\cf2{topic}} {\cf11{==}} {\cf2{CONFIG}}{\cf11{.}}{\cf2{}}{\cf16{topic}} {\cf2{}}{\cf11{(}}{\cf2{}}{\cf3{"music_sources"}}{\cf2{}}{\cf11{)) \{}}}\par\pard
+\cbpat1{{\cf2{}}        {\cf16{processMusicSourceData}} {\cf2{}}{\cf11{(}}{\cf2{std}}{\cf11{::}}{\cf2{string}}{\cf11{\{ (}}{\cf2{}}{\cf14{char}}{\cf2{}}{\cf11{*)}}{\cf2{message}}{\cf11{->}}{\cf2{payload}} {\cf11{\});}}}\par\pard
+\cbpat1{{\cf2{}}    {\cf11{\}}}}\par\pard
+\cbpat1{{\cf2{}}}\par\pard
+\cbpat1{    {\cf13{\b if\b0 }} {\cf2{}}{\cf11{(}}{\cf2{topic}}{\cf11{.}}{\cf2{}}{\cf16{find}} {\cf2{}}{\cf11{(}}{\cf2{CONFIG}}{\cf11{.}}{\cf2{}}{\cf16{topic}} {\cf2{}}{\cf11{(}}{\cf2{}}{\cf3{"clients_data"}}{\cf2{}}{\cf11{)) ==}} {\cf2{}}{\cf4{{0}}}{\cf2{}}{\cf11{) \{}}}\par\pard
+\cbpat1{{\cf2{}}        {\cf16{processClientData}} {\cf2{}}{\cf11{(}}{\cf2{std}}{\cf11{::}}{\cf2{string}}{\cf11{\{ (}}{\cf2{}}{\cf14{char}}{\cf2{}}{\cf11{*)}}{\cf2{message}}{\cf11{->}}{\cf2{payload}} {\cf11{\});}}}\par\pard
+\cbpat1{{\cf2{}}    {\cf11{\}}}}\par\pard
+\cbpat1{{\cf2{}}{\cf11{\}}}}\par\pard
+\cbpat1{{\cf2{}}}\par\pard
+\cbpat1{{\cf14{void}} {\cf2{dns}}{\cf11{::}}{\cf2{}}{\cf16{on_subscribe}} {\cf2{}}{\cf11{(}}{\cf2{}}{\cf14{int}} {\cf2{mid}}{\cf11{,}} {\cf2{}}{\cf14{int}} {\cf2{qos_count}}{\cf11{,}} {\cf2{}}{\cf14{const int}}{\cf2{}}{\cf11{*}} {\cf2{granted_qos}}{\cf11{) \{}}}\par\pard
+\cbpat1{{\cf2{}}    {\cf16{LOG}} {\cf2{}}{\cf11{(}}{\cf2{DEBUG}}{\cf11{) <<}} {\cf2{}}{\cf3{"MQTT:}}{\cf7{\\t}}{\cf3{subscription succeeded = "}}{\cf2{}} {\cf11{<<}} {\cf2{mid}}}\par\pard
+\cbpat1{                {\cf11{<<}} {\cf2{}}{\cf3{", qos_count = "}}{\cf2{}} {\cf11{<<}} {\cf2{qos_count}} {\cf11{<<}} {\cf2{}}{\cf3{", granted_qos = "}}{\cf2{}} {\cf11{<< *}}{\cf2{granted_qos}}{\cf11{;}}}\par\pard
+\cbpat1{{\cf2{}}{\cf11{\}}}}\par\pard
+\cbpat1{{\cf2{}}}\par\pard
+\cbpat1{}\par\pard
+\cbpat1{{\cf14{void}} {\cf2{dns}}{\cf11{::}}{\cf2{}}{\cf16{on_log}} {\cf2{}}{\cf11{(}}{\cf2{}}{\cf14{int}} {\cf2{level}}{\cf11{,}} {\cf2{}}{\cf14{const char}}{\cf2{}}{\cf11{*}} {\cf2{str}}{\cf11{) \{}}}\par\pard
+\cbpat1{{\cf2{}}    {\cf16{LOG}} {\cf2{}}{\cf11{(}}{\cf2{DEBUG}}{\cf11{) <<}} {\cf2{}}{\cf3{"MQTT:}}{\cf7{\\t}}{\cf3{log level "}}{\cf2{}} {\cf11{<<}} {\cf2{level}} {\cf11{<<}} {\cf2{}}{\cf3{": "}}{\cf2{}} {\cf11{<<}} {\cf2{str}}{\cf11{;}}}\par\pard
+\cbpat1{{\cf2{}}{\cf11{\}}}}\par\pard
+\cbpat1{{\cf2{}}}\par\pard
+\cbpat1{{\cf14{void}} {\cf2{dns}}{\cf11{::}}{\cf2{}}{\cf16{on_error}} {\cf2{}}{\cf11{() \{}}}\par\pard
+\cbpat1{{\cf2{}}    {\cf16{LOG}} {\cf2{}}{\cf11{(}}{\cf2{ERROR}}{\cf11{) <<}} {\cf2{}}{\cf3{"MQTT:}}{\cf7{\\t}}{\cf3{unspecified error"}}{\cf2{}}{\cf11{;}}}\par\pard
+\cbpat1{{\cf2{}}{\cf11{\}}}}\par\pard
+\cbpat1{{\cf2{}}}\par\pard
+\cbpat1{{\cf14{void}} {\cf2{dns}}{\cf11{::}}{\cf2{}}{\cf16{setMasterVolume}} {\cf2{}}{\cf11{(}}{\cf2{std}}{\cf11{::}}{\cf2{string volume}}{\cf11{) \{}}}\par\pard
+\cbpat1{{\cf2{}}    {\cf13{\b try\b0 }} {\cf2{}}{\cf11{\{}}}\par\pard
+\cbpat1{{\cf2{}}        {\cf14{size_t}} {\cf2{size}}{\cf11{\{}} {\cf2{}}{\cf4{{0}}} {\cf2{}}{\cf11{\};}}}\par\pard
+\cbpat1{{\cf2{        _master_volume}} {\cf11{=}} {\cf2{}}{\cf16{stoi}} {\cf2{}}{\cf11{(}}{\cf2{volume}}{\cf11{, &}}{\cf2{size}}{\cf11{);}}}\par\pard
+\cbpat1{{\cf2{}}        {\cf13{\b if\b0 }} {\cf2{}}{\cf11{(}}{\cf2{volume}}{\cf11{.}}{\cf2{}}{\cf16{size}} {\cf2{}}{\cf11{() !=}} {\cf2{size}}{\cf11{) \{}}}\par\pard
+\cbpat1{{\cf2{}}            {\cf16{LOG}} {\cf2{}}{\cf11{(}}{\cf2{ERROR}}{\cf11{) <<}} {\cf2{}}{\cf3{"Attempt to set invalid master volume"}}{\cf2{}}{\cf11{;}}}\par\pard
+\cbpat1{{\cf2{}}        {\cf11{\}}}}\par\pard
+\cbpat1{{\cf2{}}    {\cf11{\}}} {\cf2{}}{\cf13{\b catch\b0 }} {\cf2{}}{\cf11{(}}{\cf2{std}}{\cf11{::}}{\cf2{invalid_argument}}{\cf11{&}} {\cf2{e}}{\cf11{) \{}}}\par\pard
+\cbpat1{{\cf2{}}        {\cf16{LOG}} {\cf2{}}{\cf11{(}}{\cf2{ERROR}}{\cf11{) <<}} {\cf2{}}{\cf3{"EXCEPTION s{4}{0} invalid_argument: "}}{\cf2{}} {\cf11{<<}} {\cf2{e}}{\cf11{.}}{\cf2{}}{\cf16{what}} {\cf2{}}{\cf11{();}}}\par\pard
+\cbpat1{{\cf2{}}    {\cf11{\}}} {\cf2{}}{\cf13{\b catch\b0 }} {\cf2{}}{\cf11{(}}{\cf2{std}}{\cf11{::}}{\cf2{out_of_range}}{\cf11{&}} {\cf2{e}}{\cf11{) \{}}}\par\pard
+\cbpat1{{\cf2{}}        {\cf16{LOG}} {\cf2{}}{\cf11{(}}{\cf2{ERROR}}{\cf11{) <<}} {\cf2{}}{\cf3{"EXCEPTION s{4}{0} out_of_range: "}}{\cf2{}} {\cf11{<<}} {\cf2{e}}{\cf11{.}}{\cf2{}}{\cf16{what}} {\cf2{}}{\cf11{();}}}\par\pard
+\cbpat1{{\cf2{}}    {\cf11{\}}}}\par\pard
+\cbpat1{{\cf2{}}}\par\pard
+\cbpat1{    {\cf13{\b for\b0 }} {\cf2{}}{\cf11{(}}{\cf2{}}{\cf15{\b auto\b0 }}{\cf2{}}{\cf11{&}} {\cf2{object}} {\cf11{:}} {\cf2{_musics}}{\cf11{) \{}}}\par\pard
+\cbpat1{{\cf2{}}        {\cf14{int}} {\cf2{rwf_volume}}{\cf11{,}} {\cf2{adjusted_volume}}{\cf11{;}}}\par\pard
+\cbpat1{{\cf2{}\par\pard
+\cbpat1{        rwf_volume}}      {\cf11{=}} {\cf2{_rwf_volumes}}{\cf11{[}}{\cf2{object}}{\cf11{.}}{\cf2{first}}{\cf11{];}}}\par\pard
+\cbpat1{{\cf2{        adjusted_volume}} {\cf11{= (}}{\cf2{rwf_volume}} {\cf11{*}} {\cf2{_master_volume}}{\cf11{) /}} {\cf2{}}{\cf4{{1}{0}{0}}}{\cf2{}}{\cf11{;}}}\par\pard
+\cbpat1{{\cf2{}\par\pard
+\cbpat1{        object}}{\cf11{.}}{\cf2{second}}{\cf11{.}}{\cf2{}}{\cf16{setVolume}} {\cf2{}}{\cf11{(}}{\cf2{adjusted_volume}}{\cf11{);}}}\par\pard
+\cbpat1{{\cf2{}}    {\cf11{\}}}}\par\pard
+\cbpat1{{\cf2{}}{\cf11{\}}}}\par\pard
+\cbpat1{{\cf2{}}}\par\pard
+\cbpat1{{\cf14{void}} {\cf2{dns}}{\cf11{::}}{\cf2{}}{\cf16{setPPS}} {\cf2{}}{\cf11{(}}{\cf2{std}}{\cf11{::}}{\cf2{string status_str}}{\cf11{) \{}}}\par\pard
+\cbpat1{{\cf2{}}    {\cf14{enum}} {\cf2{play_status}} {\cf11{\{}} {\cf2{play}}{\cf11{,}} {\cf2{pause}}{\cf11{,}} {\cf2{stop}} {\cf11{\}}} {\cf2{status}}{\cf11{;}}}\par\pard
+\cbpat1{{\cf2{}}    {\cf13{\b if\b0 }} {\cf2{}}{\cf11{(}}{\cf2{status_str}} {\cf11{==}} {\cf2{}}{\cf3{"p"}}{\cf2{}} {\cf11{||}} {\cf2{status_str}} {\cf11{==}} {\cf2{}}{\cf3{"play"}}{\cf2{}}{\cf11{) \{}}}\par\pard
+\cbpat1{{\cf2{        status}} {\cf11{=}} {\cf2{play}}{\cf11{;}}}\par\pard
+\cbpat1{{\cf2{}}    {\cf11{\}}}}\par\pard
+\cbpat1{{\cf2{}}    {\cf13{\b if\b0 }} {\cf2{}}{\cf11{(}}{\cf2{status_str}} {\cf11{==}} {\cf2{}}{\cf3{"pa"}}{\cf2{}} {\cf11{||}} {\cf2{status_str}} {\cf11{==}} {\cf2{}}{\cf3{"pause"}}{\cf2{}}{\cf11{) \{}}}\par\pard
+\cbpat1{{\cf2{        status}} {\cf11{=}} {\cf2{pause}}{\cf11{;}}}\par\pard
+\cbpat1{{\cf2{}}    {\cf11{\}}}}\par\pard
+\cbpat1{{\cf2{}}    {\cf13{\b if\b0 }} {\cf2{}}{\cf11{(}}{\cf2{status_str}} {\cf11{==}} {\cf2{}}{\cf3{"s"}}{\cf2{}} {\cf11{||}} {\cf2{status_str}} {\cf11{==}} {\cf2{}}{\cf3{"stop"}}{\cf2{}}{\cf11{) \{}}}\par\pard
+\cbpat1{{\cf2{        status}} {\cf11{=}} {\cf2{stop}}{\cf11{;}}}\par\pard
+\cbpat1{{\cf2{}}    {\cf11{\}}}}\par\pard
+\cbpat1{{\cf2{}}}\par\pard
+\cbpat1{    {\cf13{\b for\b0 }} {\cf2{}}{\cf11{(}}{\cf2{}}{\cf15{\b auto\b0 }}{\cf2{}}{\cf11{&}} {\cf2{music}} {\cf11{:}} {\cf2{_musics}}{\cf11{) \{}}}\par\pard
+\cbpat1{{\cf2{}}        {\cf13{\b switch\b0 }} {\cf2{}}{\cf11{(}}{\cf2{status}}{\cf11{) \{}}}\par\pard
+\cbpat1{{\cf2{}}            {\cf13{\b case\b0 }} {\cf2{play}}{\cf11{:}} {\cf2{music}}{\cf11{.}}{\cf2{second}}{\cf11{.}}{\cf2{}}{\cf16{play}} {\cf2{}}{\cf11{();}} {\cf2{}}{\cf13{\b break\b0 }}{\cf2{}}{\cf11{;}}}\par\pard
+\cbpat1{{\cf2{}}            {\cf13{\b case\b0 }} {\cf2{pause}}{\cf11{:}} {\cf2{music}}{\cf11{.}}{\cf2{second}}{\cf11{.}}{\cf2{}}{\cf16{pause}} {\cf2{}}{\cf11{();}} {\cf2{}}{\cf13{\b break\b0 }}{\cf2{}}{\cf11{;}}}\par\pard
+\cbpat1{{\cf2{}}            {\cf13{\b case\b0 }} {\cf2{stop}}{\cf11{:}} {\cf2{music}}{\cf11{.}}{\cf2{second}}{\cf11{.}}{\cf2{}}{\cf16{stop}} {\cf2{}}{\cf11{();}} {\cf2{}}{\cf13{\b break\b0 }}{\cf2{}}{\cf11{;}}}\par\pard
+\cbpat1{{\cf2{}}        {\cf11{\}}}}\par\pard
+\cbpat1{{\cf2{}}    {\cf11{\}}}}\par\pard
+\cbpat1{{\cf2{}}{\cf11{\}}}}\par\pard
+\cbpat1{{\cf2{}}}\par\pard
+\cbpat1{{\cf6{\i /*\i0 }}}\par\pard
+\cbpat1{{\cf6{\i new sources come in\i0 }}}\par\pard
+\cbpat1{{\cf6{\i \i0 }}}\par\pard
+\cbpat1{{\cf6{\i check if new sources are in old sources map (by name)\i0 }}}\par\pard
+\cbpat1{{\cf6{\i     if so, compare uri\i0 }}}\par\pard
+\cbpat1{{\cf6{\i         if uri is same, do nothing\i0 }}}\par\pard
+\cbpat1{{\cf6{\i         if uri is different\i0 }}}\par\pard
+\cbpat1{{\cf6{\i             if object has a player\i0 }}}\par\pard
+\cbpat1{{\cf6{\i                 stop player\i0 }}}\par\pard
+\cbpat1{{\cf6{\i                 download file\i0 }}}\par\pard
+\cbpat1{{\cf6{\i                 if was playing before stopped\i0 }}}\par\pard
+\cbpat1{{\cf6{\i                     start playing\i0 }}}\par\pard
+\cbpat1{{\cf6{\i             else\i0 }}}\par\pard
+\cbpat1{{\cf6{\i                 download file\i0 }}}\par\pard
+\cbpat1{{\cf6{\i \i0 }}}\par\pard
+\cbpat1{{\cf6{\i if source is new\i0 }}}\par\pard
+\cbpat1{{\cf6{\i     add to sources\i0 }}}\par\pard
+\cbpat1{{\cf6{\i     download\i0 }}}\par\pard
+\cbpat1{{\cf6{\i beepboop\i0 }}}\par\pard
+\cbpat1{{\cf6{\i */\i0 }}{\cf2{}}}\par\pard
+\cbpat1{{\cf14{void}} {\cf2{dns}}{\cf11{::}}{\cf2{}}{\cf16{processMusicSourceData}} {\cf2{}}{\cf11{(}}{\cf2{std}}{\cf11{::}}{\cf2{string json_str}}{\cf11{) \{}}}\par\pard
+\cbpat1{{\cf2{    std}}{\cf11{::}}{\cf2{map}}{\cf11{<}}{\cf2{std}}{\cf11{::}}{\cf2{string}}{\cf11{,}} {\cf2{std}}{\cf11{::}}{\cf2{string}}{\cf11{>}} {\cf2{new_sources}}{\cf11{;}}}\par\pard
+\cbpat1{{\cf2{    new_sources}} {\cf11{=}} {\cf2{_data_parser}}{\cf11{.}}{\cf2{}}{\cf16{parseAudioSourceData}} {\cf2{}}{\cf11{(}}{\cf2{json_str}}{\cf11{);}}}\par\pard
+\cbpat1{{\cf2{}}}\par\pard
+\cbpat1{    {\cf13{\b for\b0 }} {\cf2{}}{\cf11{(}}{\cf2{}}{\cf15{\b auto\b0 }} {\cf2{new_source}} {\cf11{:}} {\cf2{new_sources}}{\cf11{) \{}}}\par\pard
+\cbpat1{{\cf2{        std}}{\cf11{::}}{\cf2{string local_name}} {\cf11{=}} {\cf2{new_source}}{\cf11{.}}{\cf2{first}}{\cf11{;}}}\par\pard
+\cbpat1{{\cf2{}}}\par\pard
+\cbpat1{        {\cf13{\b if\b0 }} {\cf2{}}{\cf11{(}}{\cf2{_sources}}{\cf11{[}}{\cf2{local_name}}{\cf11{] !=}} {\cf2{new_source}}{\cf11{.}}{\cf2{second}}{\cf11{) \{}}}\par\pard
+\cbpat1{{\cf2{}}            {\cf5{\i // only interact with player if it already exists\i0 }}}\par\pard
+\cbpat1{{\cf2{}}            {\cf13{\b if\b0 }} {\cf2{}}{\cf11{(}}{\cf2{_musics}}{\cf11{.}}{\cf2{}}{\cf16{find}} {\cf2{}}{\cf11{(}}{\cf2{local_name}}{\cf11{) !=}} {\cf2{_musics}}{\cf11{.}}{\cf2{}}{\cf16{end}} {\cf2{}}{\cf11{()) \{}}}\par\pard
+\cbpat1{{\cf2{                sf}}{\cf11{::}}{\cf2{SoundSource}}{\cf11{::}}{\cf2{Status status}} {\cf11{=}} {\cf2{_musics}}{\cf11{[}}{\cf2{local_name}}{\cf11{].}}{\cf2{}}{\cf16{getStatus}} {\cf2{}}{\cf11{();}}}\par\pard
+\cbpat1{{\cf2{                _musics}}{\cf11{[}}{\cf2{local_name}}{\cf11{].}}{\cf2{}}{\cf16{stop}} {\cf2{}}{\cf11{();}}}\par\pard
+\cbpat1{{\cf2{}\par\pard
+\cbpat1{                download}}{\cf11{::}}{\cf2{}}{\cf16{download}} {\cf2{}}{\cf11{(}}{\cf2{new_source}}{\cf11{.}}{\cf2{second}}{\cf11{,}} {\cf2{_cache_path}} {\cf11{+}} {\cf2{local_name}}{\cf11{);}}}\par\pard
+\cbpat1{{\cf2{}}}\par\pard
+\cbpat1{                {\cf5{\i // only start playing if it was previously playing\i0 }}}\par\pard
+\cbpat1{{\cf2{}}                {\cf13{\b if\b0 }} {\cf2{}}{\cf11{(}}{\cf2{status}} {\cf11{==}} {\cf2{sf}}{\cf11{::}}{\cf2{SoundSource}}{\cf11{::}}{\cf2{Status}}{\cf11{::}}{\cf2{Playing}}{\cf11{) \{}}}\par\pard
+\cbpat1{{\cf2{                    _musics}}{\cf11{[}}{\cf2{local_name}}{\cf11{].}}{\cf2{}}{\cf16{openFromFile}} {\cf2{}}{\cf11{(}}{\cf2{_cache_path}} {\cf11{+}} {\cf2{local_name}}{\cf11{);}}}\par\pard
+\cbpat1{{\cf2{                    _musics}}{\cf11{[}}{\cf2{local_name}}{\cf11{].}}{\cf2{}}{\cf16{play}} {\cf2{}}{\cf11{();}}}\par\pard
+\cbpat1{{\cf2{}}                {\cf11{\}}}}\par\pard
+\cbpat1{{\cf2{}}            {\cf11{\}}} {\cf2{}}{\cf13{\b else\b0 }} {\cf2{}}{\cf11{\{}}}\par\pard
+\cbpat1{{\cf2{                download}}{\cf11{::}}{\cf2{}}{\cf16{download}} {\cf2{}}{\cf11{(}}{\cf2{new_source}}{\cf11{.}}{\cf2{second}}{\cf11{,}} {\cf2{_cache_path}} {\cf11{+}} {\cf2{local_name}}{\cf11{);}}}\par\pard
+\cbpat1{{\cf2{}}            {\cf11{\}}}}\par\pard
+\cbpat1{{\cf2{}}        {\cf11{\}}}}\par\pard
+\cbpat1{{\cf2{}}    {\cf11{\}}}}\par\pard
+\cbpat1{{\cf2{    _sources}} {\cf11{=}} {\cf2{new_sources}}{\cf11{;}}}\par\pard
+\cbpat1{{\cf2{}}{\cf11{\}}}}\par\pard
+\cbpat1{{\cf2{}}}\par\pard
+\cbpat1{{\cf6{\i /*\i0 }}}\par\pard
+\cbpat1{{\cf6{\i new objects come in\i0 }}}\par\pard
+\cbpat1{{\cf6{\i parse into map of vectors of speaker distances\i0 }}}\par\pard
+\cbpat1{{\cf6{\i parse local speaker objects\i0 }}}\par\pard
+\cbpat1{{\cf6{\i \i0 }}}\par\pard
+\cbpat1{{\cf6{\i for every local speaker object\i0 }}}\par\pard
+\cbpat1{{\cf6{\i     get vector of speaker distances to said object\i0 }}}\par\pard
+\cbpat1{{\cf6{\i     append vector with personal distance\i0 }}}\par\pard
+\cbpat1{{\cf6{\i     calculate rwf from vector\i0 }}}\par\pard
+\cbpat1{{\cf6{\i     get local object volume from rwf returns\i0 }}}\par\pard
+\cbpat1{{\cf6{\i     adjust local object volume to master volume\i0 }}}\par\pard
+\cbpat1{{\cf6{\i     if audio player exists for object\i0 }}}\par\pard
+\cbpat1{{\cf6{\i         set player local object volume\i0 }}}\par\pard
+\cbpat1{{\cf6{\i     else\i0 }}}\par\pard
+\cbpat1{{\cf6{\i         if a source file is known for the object\i0 }}}\par\pard
+\cbpat1{{\cf6{\i             create player and set file\i0 }}}\par\pard
+\cbpat1{{\cf6{\i             set player local object volume\i0 }}}\par\pard
+\cbpat1{{\cf6{\i \i0 }}}\par\pard
+\cbpat1{{\cf6{\i for every player\i0 }}}\par\pard
+\cbpat1{{\cf6{\i     if player name is NOT found in local objects\i0 }}}\par\pard
+\cbpat1{{\cf6{\i         delete player\i0 }}}\par\pard
+\cbpat1{{\cf6{\i     else\i0 }}}\par\pard
+\cbpat1{{\cf6{\i         do nothing\i0 }}}\par\pard
+\cbpat1{{\cf6{\i */\i0 }}{\cf2{}}}\par\pard
+\cbpat1{}\par\pard
+\cbpat1{{\cf14{void}} {\cf2{dns}}{\cf11{::}}{\cf2{}}{\cf16{processClientData}} {\cf2{}}{\cf11{(}}{\cf2{std}}{\cf11{::}}{\cf2{string json_str}}{\cf11{) \{}}}\par\pard
+\cbpat1{{\cf2{    std}}{\cf11{::}}{\cf2{map}}{\cf11{<}}{\cf2{std}}{\cf11{::}}{\cf2{string}}{\cf11{,}} {\cf2{std}}{\cf11{::}}{\cf2{vector}}{\cf11{<}}{\cf2{}}{\cf14{float}}{\cf2{}}{\cf11{>>}} {\cf2{objects}}{\cf11{;}}}\par\pard
+\cbpat1{{\cf2{}}    {\cf14{float}} {\cf2{rwf_volume}}{\cf11{,}} {\cf2{adjusted_volume}}{\cf11{;}}}\par\pard
+\cbpat1{{\cf2{    rwf}}{\cf11{::}}{\cf2{rwf}}{\cf11{<}}{\cf2{}}{\cf14{float}}{\cf2{}}{\cf11{>}} {\cf2{}}{\cf16{rwf}} {\cf2{}}{\cf11{(\{}} {\cf2{}}{\cf4{{0}}} {\cf2{}}{\cf11{\});}}}\par\pard
+\cbpat1{{\cf2{    _speaker_data}} {\cf11{=}} {\cf2{_data_parser}}{\cf11{.}}{\cf2{}}{\cf16{parseClientData}} {\cf2{}}{\cf11{(}}{\cf2{json_str}}{\cf11{,}} {\cf2{CONFIG}}{\cf11{.}}{\cf2{}}{\cf16{clientid}} {\cf2{}}{\cf11{(),}} {\cf2{objects}}{\cf11{);}}}\par\pard
+\cbpat1{{\cf2{}}}\par\pard
+\cbpat1{    {\cf13{\b for\b0 }} {\cf2{}}{\cf11{(}}{\cf2{}}{\cf15{\b auto\b0 }} {\cf2{audio_object}} {\cf11{:}} {\cf2{_speaker_data}}{\cf11{.}}{\cf2{objects}}{\cf11{) \{}}}\par\pard
+\cbpat1{{\cf2{        std}}{\cf11{::}}{\cf2{string object_name}}      {\cf11{=}} {\cf2{audio_object}}{\cf11{.}}{\cf2{first}}{\cf11{;}}}\par\pard
+\cbpat1{{\cf2{        std}}{\cf11{::}}{\cf2{vector}}{\cf11{<}}{\cf2{}}{\cf14{float}}{\cf2{}}{\cf11{>}} {\cf2{distances}} {\cf11{=}} {\cf2{objects}}{\cf11{[}}{\cf2{object_name}}{\cf11{];}}}\par\pard
+\cbpat1{{\cf2{        distances}}{\cf11{.}}{\cf2{}}{\cf16{push_back}} {\cf2{}}{\cf11{(}}{\cf2{audio_object}}{\cf11{.}}{\cf2{second}}{\cf11{.}}{\cf2{distance}}{\cf11{);}}}\par\pard
+\cbpat1{{\cf2{}\par\pard
+\cbpat1{        rwf}}{\cf11{.}}{\cf2{}}{\cf16{set_factors}} {\cf2{}}{\cf11{(}}{\cf2{distances}}{\cf11{);}}}\par\pard
+\cbpat1{{\cf2{        rwf_volume}} {\cf11{=}} {\cf2{rwf}}{\cf11{.}}{\cf2{}}{\cf16{get_relative_weight_factor}} {\cf2{}}{\cf11{().}}{\cf2{}}{\cf16{back}} {\cf2{}}{\cf11{();}}}\par\pard
+\cbpat1{{\cf2{}\par\pard
+\cbpat1{        _rwf_volumes}}{\cf11{[}}{\cf2{object_name}}{\cf11{] =}} {\cf2{rwf_volume}}{\cf11{;}}}\par\pard
+\cbpat1{{\cf2{        adjusted_volume}}           {\cf11{= (}}{\cf2{rwf_volume}} {\cf11{*}} {\cf2{_master_volume}}{\cf11{) /}} {\cf2{}}{\cf4{{1}{0}{0}}}{\cf2{}}{\cf11{;}}}\par\pard
+\cbpat1{{\cf2{}}}\par\pard
+\cbpat1{        {\cf13{\b if\b0 }} {\cf2{}}{\cf11{(}}{\cf2{_musics}}{\cf11{.}}{\cf2{}}{\cf16{find}} {\cf2{}}{\cf11{(}}{\cf2{object_name}}{\cf11{) !=}} {\cf2{_musics}}{\cf11{.}}{\cf2{}}{\cf16{end}} {\cf2{}}{\cf11{()) \{}}}\par\pard
+\cbpat1{{\cf2{            _musics}}{\cf11{[}}{\cf2{object_name}}{\cf11{].}}{\cf2{}}{\cf16{setVolume}} {\cf2{}}{\cf11{(}}{\cf2{adjusted_volume}}{\cf11{);}}}\par\pard
+\cbpat1{{\cf2{}}        {\cf11{\}}} {\cf2{}}{\cf13{\b else\b0 }} {\cf2{}}{\cf11{\{}}}\par\pard
+\cbpat1{{\cf2{}}            {\cf13{\b if\b0 }} {\cf2{}}{\cf11{(}}{\cf2{_sources}}{\cf11{.}}{\cf2{}}{\cf16{find}} {\cf2{}}{\cf11{(}}{\cf2{object_name}}{\cf11{) !=}} {\cf2{_sources}}{\cf11{.}}{\cf2{}}{\cf16{end}} {\cf2{}}{\cf11{()) \{}}}\par\pard
+\cbpat1{{\cf2{                _musics}}{\cf11{[}}{\cf2{object_name}}{\cf11{].}}{\cf2{}}{\cf16{openFromFile}} {\cf2{}}{\cf11{(}}{\cf2{_cache_path}} {\cf11{+}} {\cf2{object_name}}{\cf11{);}}}\par\pard
+\cbpat1{{\cf2{                _musics}}{\cf11{[}}{\cf2{object_name}}{\cf11{].}}{\cf2{}}{\cf16{setVolume}} {\cf2{}}{\cf11{(}}{\cf2{adjusted_volume}}{\cf11{);}}}\par\pard
+\cbpat1{{\cf2{}}            {\cf11{\}}} {\cf2{}}{\cf13{\b else\b0 }} {\cf2{}}{\cf11{\{}}}\par\pard
+\cbpat1{{\cf2{}}                {\cf16{LOG}} {\cf2{}}{\cf11{(}}{\cf2{ERROR}}{\cf11{) <<}} {\cf2{}}{\cf3{"No known source file for object}} {\cf7{\\"}}{\cf3{"}}{\cf2{}} {\cf11{<<}} {\cf2{object_name}} {\cf11{<<}} {\cf2{}}{\cf3{"}}{\cf7{\\"}}{\cf3{"}}{\cf2{}}{\cf11{;}}}\par\pard
+\cbpat1{{\cf2{}}            {\cf11{\}}}}\par\pard
+\cbpat1{{\cf2{}}        {\cf11{\}}}}\par\pard
+\cbpat1{{\cf2{}}    {\cf11{\}}}}\par\pard
+\cbpat1{{\cf2{}}}\par\pard
+\cbpat1{    {\cf5{\i // remove all unneeded players\i0 }}}\par\pard
+\cbpat1{{\cf2{}}    {\cf13{\b for\b0 }} {\cf2{}}{\cf11{(}}{\cf2{}}{\cf15{\b auto\b0 }} {\cf2{it}} {\cf11{=}} {\cf2{_musics}}{\cf11{.}}{\cf2{}}{\cf16{cbegin}} {\cf2{}}{\cf11{();}} {\cf2{it}} {\cf11{!=}} {\cf2{_musics}}{\cf11{.}}{\cf2{}}{\cf16{cend}} {\cf2{}}{\cf11{();) \{}}}\par\pard
+\cbpat1{{\cf2{}}        {\cf13{\b if\b0 }} {\cf2{}}{\cf11{(}}{\cf2{_speaker_data}}{\cf11{.}}{\cf2{objects}}{\cf11{.}}{\cf2{}}{\cf16{find}} {\cf2{}}{\cf11{(}}{\cf2{it}}{\cf11{->}}{\cf2{first}}{\cf11{) ==}} {\cf2{_speaker_data}}{\cf11{.}}{\cf2{objects}}{\cf11{.}}{\cf2{}}{\cf16{end}} {\cf2{}}{\cf11{()) \{}}}\par\pard
+\cbpat1{{\cf2{            _musics}}{\cf11{.}}{\cf2{}}{\cf16{erase}} {\cf2{}}{\cf11{(}}{\cf2{it}}{\cf11{++);}}}\par\pard
+\cbpat1{{\cf2{}}        {\cf11{\}}} {\cf2{}}{\cf13{\b else\b0 }} {\cf2{}}{\cf11{\{}}}\par\pard
+\cbpat1{{\cf2{}}            {\cf11{++}}{\cf2{it}}{\cf11{;}}}\par\pard
+\cbpat1{{\cf2{}}        {\cf11{\}}}}\par\pard
+\cbpat1{{\cf2{}}    {\cf11{\}}}}\par\pard
+\cbpat1{{\cf2{}}{\cf11{\}}}{\cf2{}}}\par\pard
+\cbpat1{}}
