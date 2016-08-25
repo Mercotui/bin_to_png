@@ -9,5 +9,4 @@ HEIGHT = 70
 rtf_text = File.open(ARGV[0]).read
 test_screen = ScreenOfchars.new
 test_screen.parse_rtf(rtf_text)
-test_screen.generate(1656, 630)
-#test_screen.generate(1920, 1080)
+test_screen.generate(1920, 1080)
