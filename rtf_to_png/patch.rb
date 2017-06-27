@@ -1,6 +1,12 @@
 require "chunky_png"
 
 class Patch
+    module Modes
+        PATCHES=0
+        PATCHES_GLYPHS=1
+        GLYPHS=2
+        DOTS=3
+    end
     module Types
         SPACER=0
         SENTENCE_START=1
@@ -17,9 +23,9 @@ class Patch
 
     def to_img(mode, width, height, offset)
         case mode
-        when 'patch'
+        when Modes::PATCHES
             ret = to_patch(width, height, offset, @color)
-        when 'glyph_colored_simple'
+        when Modes::GLYPHS
             ret = to_glyph(width, @color)
         else
             puts 'to_img INVALID MODE: "' + mode.to_s + '"'

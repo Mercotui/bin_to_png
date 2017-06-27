@@ -39,7 +39,7 @@ class ScreenOfchars
         end
     end
 
-    def generate (width, height)
+    def generate (save_file, width, height, mode)
         png = ChunkyPNG::Image.new(width, height, ChunkyPNG::Color('purple'))
 
         char_width = 19
@@ -50,7 +50,7 @@ class ScreenOfchars
         loc_y = 0
 
         while loc_y <= height && @chars.each.count > idx do
-            char_img = @chars[idx].to_img('patch', char_width, char_height, char_offset)
+            char_img = @chars[idx].to_img(mode, char_width, char_height, char_offset)
             if(loc_x == 0)
                 char_img.crop!(char_offset, 0, char_width, char_height)
                 loc_x_increment = char_width - char_offset
@@ -79,7 +79,7 @@ class ScreenOfchars
 
         puts "finished! saving..."
         png.metadata['Author'] = "Mercotui's bin_to_png"
-        png.save('test.png')
-        puts "saved, exiting."
+        png.save(save_file)
+        puts 'saved to "' + save_file + '", exiting.'
     end
 end
